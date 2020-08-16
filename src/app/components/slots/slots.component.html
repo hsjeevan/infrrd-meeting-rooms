@@ -1,1 +1,54 @@
-<p>slots works!</p>
+<div class="slot-selector">
+
+  <div class="group">
+    <input type="date" [(ngModel)]="currentDate" [min]="today">
+    <span class="highlight"></span>
+    <span class="bar"></span>
+    <label>Date</label>
+  </div>
+  <div class="group">
+    <select [(ngModel)]="fromValue" (ngModelChange)="computeToArr(fromValue)">
+      <option *ngFor="let item of fromTimeSlots" [value]="item">{{item}}</option>
+    </select>
+    <span class="highlight"></span>
+    <span class="bar"></span>
+    <label>Start Time</label>
+  </div>
+  <div class="group">
+    <select [(ngModel)]="toValue">
+      <option *ngFor="let item of toTimeSlots" [value]="item">{{item}}</option>
+    </select>
+    <span class="highlight"></span>
+    <span class="bar"></span>
+    <label>End Time</label>
+  </div>
+  <button class="btn" [disabled]="!toValue || !fromValue || !currentDate "
+    (click)="filterSlots(currentDate, fromValue, toValue)">Check
+    Slots</button>
+</div>
+
+<table class="table">
+  <thead>
+    <th>Room</th>
+    <th>Time</th>
+    <th>Name</th>
+    <th>Status</th>
+  </thead>
+  <tbody *ngIf="availabilityArr.length>0; else noElements">
+    <tr *ngFor="let booking of availabilityArr; let i=index;">
+      <td label="Room">Meeting Room {{i+1}}</td>
+      <td label="Timings">{{booking.fromInSeconds| date:'shortTime'}} - {{booking.toInSeconds| date:'shortTime'}}</td>
+      <td label="Name">{{booking.name|| ''}}</td>
+      <td label="status"
+        [ngClass]="[booking.status === 'Available' ? 'green' : booking.status === 'Booked'? 'orange' : 'yellow' ]">
+        {{booking.status}}</td>
+    </tr>
+  </tbody>
+  <ng-template #noElements>
+    <tbody class="no-elements">
+      <tr>
+        <td colspan="6">Choose a time slot to view availability.</td>
+      </tr>
+    </tbody>
+  </ng-template>
+</table>

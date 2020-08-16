@@ -1,8 +1,8 @@
 import { Component, OnInit } from '@angular/core';
-import { FormGroup, FormControl, Validators } from '@angular/forms';
-import { HttpClient } from '@angular/common/http';
-import { DataService } from 'src/app/shared/data.service';
+import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
+import { DataService } from 'src/app/shared/data.service';
+import { TimeService } from 'src/app/shared/time.service';
 
 @Component({
   selector: 'app-booking',
@@ -15,12 +15,11 @@ export class BookingComponent implements OnInit {
   bookingData: any;
   displayArr = [];
   time;
-  timeArr = ['09: 00', '09: 30', '10: 00', '10: 30', '11: 00', '11: 30', '12: 00', '12: 30', '13: 00', '13: 30', '14: 00', '14: 30', '15: 00', '15: 30', '16: 00', '16: 30', '17: 00', '17: 30', '18: 00'];
-  fromTimeSlots = [...this.timeArr];
-  toTimeSlots = [...this.timeArr];
+  fromTimeSlots = [...this.timeService.timeArr];
+  toTimeSlots = [...this.timeService.timeArr];
   currentDate: any;
 
-  constructor(private httpClient: HttpClient, private dataService: DataService, private router: Router) { }
+  constructor(private timeService: TimeService, private dataService: DataService, private router: Router) { }
 
   async ngOnInit() {
     this.initializeForm();
@@ -31,7 +30,6 @@ export class BookingComponent implements OnInit {
 
 
   onSubmit() {
-    const dbURL = 'http://localhost:3000/bookings';
     const formData = this.bookingForm.value;
     const postData = {
       room: formData.room,
@@ -43,9 +41,10 @@ export class BookingComponent implements OnInit {
       toInSeconds: this.dataService.getTimeInSeconds(formData.date, formData.toTime),
       fromInSeconds: this.dataService.getTimeInSeconds(formData.date, formData.fromTime)
     };
-    let k = this.dataService.checkAvailability(postData);
+    let k = this.dataService.checkConflictingBookings(postData);
     if (k.length < 1) {
       this.dataService.getData();
+      this.dataService.post(postData)
       this.router.navigate(['/rooms']);
     }
     else {
@@ -55,9 +54,9 @@ export class BookingComponent implements OnInit {
 
   initializeForm() {
     this.fromTimeSlots.pop();
-    this.currentDate = this.getDateString(new Date());
-    if (this.isWeekend(this.currentDate)) {
-      this.currentDate = this.getNextMonday(this.currentDate);
+    this.currentDate = this.timeService.getDateString(new Date());
+    if (this.timeService.isWeekend(this.currentDate)) {
+      this.currentDate = this.timeService.getNextMonday(this.currentDate);
     }
     this.setFromTimeValue_Slots();
 
@@ -73,13 +72,12 @@ export class BookingComponent implements OnInit {
 
   subscribeToForm() {
     this.bookingForm.get('fromTime').valueChanges.subscribe(val => {
-      this.toTimeSlots = this.timeArr.filter(time => time > val);
-      console.log(val);
+      this.toTimeSlots = this.timeService.timeArr.filter(time => time > val);
     });
 
 
     this.bookingForm.get('date').valueChanges.subscribe(val => {
-      if (this.isWeekend(val)) {
+      if (this.timeService.isWeekend(val)) {
         // this.getNextMonday(val);
         this.bookingForm.controls.fromTime.setValue('');
         this.bookingForm.controls.toTime.setValue('');
@@ -93,14 +91,13 @@ export class BookingComponent implements OnInit {
         }
         this.bookingForm.controls.fromTime.enable();
         this.bookingForm.controls.toTime.enable();
-        this.fromTimeSlots = [...this.timeArr];
+        this.fromTimeSlots = [...this.timeService.timeArr];
       }
     });
   }
-
   setFromTimeValue_Slots() {
     this.time = '09: 00';
-    if (this.isSameDay(this.currentDate)) {
+    if (this.timeService.isSameDay(this.currentDate)) {
       const now = new Date().toTimeString().split(':');
       this.fromTimeSlots = this.fromTimeSlots.filter(time => time > `${now[0]}: ${now[1]}`);
       if (this.fromTimeSlots.length > 0) {
@@ -110,41 +107,16 @@ export class BookingComponent implements OnInit {
         this.setNextDay(this.currentDate);
       }
     }
-    this.toTimeSlots = this.timeArr.filter(time => time > this.time);
+    this.toTimeSlots = this.timeService.timeArr.filter(time => time > this.time);
   }
   setNextDay(day) {
     const nextDay = new Date(day);
     nextDay.setDate(nextDay.getDate() + 1);
-    const newDate = this.isWeekend(nextDay) ? this.getNextMonday(day) : this.getDateString(nextDay);
+    const newDate = this.timeService.isWeekend(nextDay) ? this.timeService.getNextMonday(day) : this.timeService.getDateString(nextDay);
     this.bookingForm.controls.fromTime.setValue(newDate);
   }
 
-  isWeekend(day) {
-    const today = new Date(day);
-    if (today.getDay() === 6 || today.getDay() === 0) {
-      // if (this.isSameDay(day)) {
-      //   return false;
-      // }
-      return true;
-    }
-    return false;
-  }
-  isSameDay(day) {
-    if (new Date(day).toDateString() === new Date().toDateString()) {
-      return true;
-    }
-    return false;
-  }
 
-  getNextMonday(day) {
-    const today = new Date(day);
-    return this.getDateString(new Date(today.setDate(today.getDate() + (1 + 7 - today.getDay()) % 7)));
-  }
-
-  getDateString(date) {
-    const tzoffset = (new Date(date)).getTimezoneOffset() * 60000;
-    return (new Date(new Date(date).getTime() - tzoffset)).toISOString().split('T')[0];
-  }
 
   counter(val) {
     return this.dataService.counter(val);

@@ -1,72 +1,6 @@
 {
   "bookings": [
     {
-      "room": 1,
-      "date": "2020-08-26",
-      "fromTime": "09: 00",
-      "toTime": "12: 30",
-      "name": "asdsad",
-      "agenda": "asdasd",
-      "toInSeconds": 1598425200000,
-      "fromInSeconds": 1598412600000,
-      "id": 4
-    },
-    {
-      "room": "2",
-      "date": "2020-08-17",
-      "fromTime": "09: 00",
-      "toTime": "10: 30",
-      "name": "asdasd",
-      "agenda": "asdasd",
-      "toInSeconds": 1597640400000,
-      "fromInSeconds": 1597635000000,
-      "id": 5
-    },
-    {
-      "room": "3",
-      "date": "2020-08-17",
-      "fromTime": "09: 00",
-      "toTime": "10: 00",
-      "name": "asdsad",
-      "agenda": "asdasdas",
-      "toInSeconds": 1597638600000,
-      "fromInSeconds": 1597635000000,
-      "id": 6
-    },
-    {
-      "room": "2",
-      "date": "2020-08-17",
-      "fromTime": "09: 00",
-      "toTime": "10: 30",
-      "name": "asdasd",
-      "agenda": "asdasd",
-      "toInSeconds": 1597640400000,
-      "fromInSeconds": 1597635000000,
-      "id": 12
-    },
-    {
-      "room": "3",
-      "date": "2020-08-17",
-      "fromTime": "09: 00",
-      "toTime": "10: 00",
-      "name": "asdsad",
-      "agenda": "asdasdas",
-      "toInSeconds": 1597638600000,
-      "fromInSeconds": 1597635000000,
-      "id": 13
-    },
-    {
-      "room": "2",
-      "date": "2020-08-26",
-      "fromTime": "10: 30",
-      "toTime": "16: 00",
-      "name": "sadasd",
-      "agenda": "asdasd",
-      "toInSeconds": 1598437800000,
-      "fromInSeconds": 1598418000000,
-      "id": 14
-    },
-    {
       "room": "4",
       "date": "2020-08-17",
       "fromTime": "09: 00",
@@ -144,15 +78,48 @@
       "id": 23
     },
     {
+      "room": "10",
+      "date": "2020-08-17",
+      "fromTime": "09: 00",
+      "toTime": "10: 00",
+      "name": "asdasdas",
+      "agenda": "sdasdasda",
+      "toInSeconds": 1597638600000,
+      "fromInSeconds": 1597635000000,
+      "id": 25
+    },
+    {
+      "room": "7",
+      "date": "2020-08-17",
+      "fromTime": "09: 00",
+      "toTime": "13: 00",
+      "name": "asdads",
+      "agenda": "213213",
+      "toInSeconds": 1597649400000,
+      "fromInSeconds": 1597635000000,
+      "id": 26
+    },
+    {
       "room": 1,
       "date": "2020-08-17",
       "fromTime": "09: 00",
-      "toTime": "09: 30",
-      "name": "asdsad",
-      "agenda": "asdasd",
-      "toInSeconds": 1597636800000,
+      "toTime": "12: 00",
+      "name": "dsfsdf",
+      "agenda": "sdfsdfs",
+      "toInSeconds": 1597645800000,
       "fromInSeconds": 1597635000000,
-      "id": 24
+      "id": 27
+    },
+    {
+      "room": "4",
+      "date": "2020-08-17",
+      "fromTime": "12: 00",
+      "toTime": "16: 30",
+      "name": "Jeevan",
+      "agenda": "Test",
+      "toInSeconds": 1597662000000,
+      "fromInSeconds": 1597645800000,
+      "id": 28
     }
   ]
 }

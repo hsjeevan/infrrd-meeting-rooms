@@ -11,11 +11,12 @@ export class DataService {
   displayArr: any;
   bookingDataSubject = new BehaviorSubject([]);
   filterdArrSubject = new BehaviorSubject([]);
+
+  dbURL = 'http://localhost:3000/bookings'
   constructor(private http: HttpClient) { }
 
   async getData() {
-    const dbURL = 'http://localhost:3000/bookings'
-    await this.http.get(dbURL).subscribe(async data => {
+    await this.http.get(this.dbURL).subscribe(async data => {
       this.bookingData = await data;
       this.bookingDataSubject.next(this.bookingData);
       this.filterRoom(this.optionVal);
@@ -23,7 +24,7 @@ export class DataService {
   }
 
 
-  checkAvailability(postData) {
+  checkConflictingBookings(postData) {
     return this.bookingData.filter((booking: any) => {
       const from = this.getTimeInSeconds(postData.date, postData.fromTime, 'from');
       const to = this.getTimeInSeconds(postData.date, postData.toTime, 'to');
@@ -62,9 +63,12 @@ export class DataService {
     return dateObj.getTime();
   }
 
+  async post(data) {
+    await this.http.post(this.dbURL, data).toPromise();
+    this.getData();
+  }
   async delete(id) {
-    const dbURL = 'http://localhost:3000/bookings'
-    await this.http.delete(dbURL + "/" + id).toPromise();
+    await this.http.delete(this.dbURL + "/" + id).toPromise();
     this.getData();
   }
   counter(i: number) {

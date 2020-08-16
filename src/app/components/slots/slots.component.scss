@@ -1,0 +1,46 @@
+$primary-color: #5264ae;
+$gray-color: #757575;
+
+.slot-selector {
+  width: 70vw;
+  min-width: 300px;
+  padding: 0.5rem;
+  color: $gray-color;
+  margin: 1rem auto 0rem auto;
+  text-align: center;
+  display: grid;
+  grid-template-columns: 1fr 1fr 1fr 1fr;
+  gap: 20px;
+  .btn {
+    // margin-left: 10%;
+    height: 60%;
+    padding: 0;
+  }
+}
+.green {
+  color: green;
+}
+.orange {
+  color: orange;
+}
+.yellow {
+  color: yellow;
+}
+
+@media screen and (max-width: 768px) {
+  .slot-selector {
+    grid-template-columns: 1fr 1fr;
+    width: 80%;
+  }
+  table {
+    width: 80vw;
+  }
+}
+@media screen and (max-width: 480px) {
+  .slot-selector {
+    width: 90vw;
+  }
+  table {
+    width: 98vw;
+  }
+}

@@ -9,11 +9,30 @@ $gray-color: #757575;
   margin: 1rem auto 0rem auto;
   text-align: center;
   display: grid;
-  grid-template-columns: 2fr 1fr;
+  grid-template-columns: 3fr 1fr;
+
+  gap: 20px;
   .btn {
-    margin-left: 10%;
+    // margin-left: 10%;
     height: 60%;
     padding: 0;
   }
 }
 
+@media screen and (max-width: 768px) {
+  .room-selector {
+    grid-template-columns: 1fr 1fr;
+    width: 80%;
+  }
+  table {
+    width: 80vw;
+  }
+}
+@media screen and (max-width: 480px) {
+  .room-selector {
+    width: 90vw;
+  }
+  table {
+    width: 98vw;
+  }
+}

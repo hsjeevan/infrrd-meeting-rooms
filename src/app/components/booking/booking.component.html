@@ -1,1 +1,63 @@
-<p>booking works!</p>
+<div class="welcome">
+  <h3>Welcome to Infrrd Meeting Rooms</h3>
+  <div class="message">
+    You have a pool of 10 meeting rooms to book from. The meeting rooms can be booked
+    between 9:00AM and 6:00PM on Monday to Friday. The duration for the meetings to be scheduled
+    should be minimum 30 minutes.
+  </div>
+</div>
+
+<div class="form-container">
+
+
+
+  <form [formGroup]="bookingForm" (ngSubmit)="onSubmit()">
+    <div class="group">
+      <select formControlName="room">
+        <option *ngFor="let k of counter(10);let i = index" [value]="i+1">{{"Meeting Room "+(i+1)}}</option>
+      </select>
+      <span class="highlight"></span>
+      <span class="bar"></span>
+      <label>Meeting Room</label>
+    </div>
+    <div class="group">
+      <input type="date" formControlName="date" [min]="currentDate">
+      <span class="highlight"></span>
+      <span class="bar"></span>
+      <label>Date</label>
+    </div>
+    <div class="group">
+      <select formControlName="fromTime">
+        <option *ngFor="let item of fromTimeSlots" [value]="item">{{item}}</option>
+      </select>
+      <span class="highlight"></span>
+      <span class="bar"></span>
+      <label>Start Time</label>
+    </div>
+    <div class="group">
+      <select formControlName="toTime">
+        <option *ngFor="let item of toTimeSlots" [value]="item">{{item}}</option>
+      </select>
+      <span class="highlight"></span>
+      <span class="bar"></span>
+      <label>End Time</label>
+    </div>
+
+    <div class="group">
+      <input type="text" formControlName="name">
+      <span class="highlight"></span>
+      <span class="bar"></span>
+      <label>Name</label>
+    </div>
+
+    <div class="group">
+      <input type="textarea" formControlName="agenda">
+      <span class="highlight"></span>
+      <span class="bar"></span>
+      <label>Agenda</label>
+    </div>
+    <div class="btn-form-container">
+      <button class="btn" [disabled]="!bookingForm.valid" type="submit">Book room</button>
+    </div>
+  </form>
+</div>

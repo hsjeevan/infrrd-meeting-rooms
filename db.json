@@ -1,0 +1,81 @@
+{
+  "bookings": [
+    {
+      "room": "4",
+      "date": "2020-08-17",
+      "fromTime": "09: 00",
+      "toTime": "11: 00",
+      "name": "sfdfsdf",
+      "agenda": "sdfsdfs",
+      "toInSeconds": 1597642200000,
+      "fromInSeconds": 1597635000000,
+      "id": 6
+    },
+    {
+      "room": 1,
+      "date": "2020-08-17",
+      "fromTime": "09: 30",
+      "toTime": "10: 30",
+      "name": "asadsa",
+      "agenda": "asdsad",
+      "toInSeconds": 1597640400000,
+      "fromInSeconds": 1597636800000,
+      "id": 7
+    },
+    {
+      "room": 1,
+      "date": "2020-08-17",
+      "fromTime": "09: 00",
+      "toTime": "09: 30",
+      "name": "asdsad",
+      "agenda": "asdasd",
+      "toInSeconds": 1597636800000,
+      "fromInSeconds": 1597635000000,
+      "id": 8
+    },
+    {
+      "room": 1,
+      "date": "2020-08-26",
+      "fromTime": "09: 00",
+      "toTime": "12: 30",
+      "name": "asdsad",
+      "agenda": "asdasd",
+      "toInSeconds": 1598425200000,
+      "fromInSeconds": 1598412600000,
+      "id": 9
+    },
+    {
+      "room": "2",
+      "date": "2020-08-17",
+      "fromTime": "09: 00",
+      "toTime": "10: 30",
+      "name": "asdasd",
+      "agenda": "asdasd",
+      "toInSeconds": 1597640400000,
+      "fromInSeconds": 1597635000000,
+      "id": 10
+    },
+    {
+      "room": "3",
+      "date": "2020-08-17",
+      "fromTime": "09: 00",
+      "toTime": "10: 00",
+      "name": "asdsad",
+      "agenda": "asdasdas",
+      "toInSeconds": 1597638600000,
+      "fromInSeconds": 1597635000000,
+      "id": 11
+    },
+    {
+      "room": "2",
+      "date": "2020-08-26",
+      "fromTime": "10: 30",
+      "toTime": "16: 00",
+      "name": "sadasd",
+      "agenda": "asdasd",
+      "toInSeconds": 1598437800000,
+      "fromInSeconds": 1598418000000,
+      "id": 12
+    }
+  ]
+}

@@ -25,7 +25,7 @@ export class BookingComponent implements OnInit {
   async ngOnInit() {
     this.initializeForm();
     this.subscribeToForm();
-    this.dataService.getData();
+    // this.dataService.getData();
   }
 
 
@@ -146,8 +146,8 @@ export class BookingComponent implements OnInit {
     return (new Date(new Date(date).getTime() - tzoffset)).toISOString().split('T')[0];
   }
 
-  counter(i: number) {
-    return new Array(i);
+  counter(val) {
+    return this.dataService.counter(val);
   }
 
 

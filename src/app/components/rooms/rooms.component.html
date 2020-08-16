@@ -1,1 +1,44 @@
-<p>rooms works!</p>
+<div class="room-selector">
+
+  <div class="group">
+    <select [(ngModel)]="optionVal">
+      <option value="all">All</option>
+      <option *ngFor="let k of counter(10);let i = index" [value]="i+1">{{"Meeting Room "+(i+1)}}</option>
+    </select>
+    <span class="highlight"></span>
+    <span class="bar"></span>
+    <label>Meeting Room</label>
+  </div>
+
+  <button class="btn" (click)="filterRoom(optionVal)">Filter Room</button>
+
+</div>
+
+<table class="table">
+  <thead>
+    <th>Room</th>
+    <th>Date</th>
+    <th>Time</th>
+    <th>Name</th>
+    <th>Agenda</th>
+    <th>Delete</th>
+  </thead>
+  <tbody *ngIf="displayArr.length>0; else noElements">
+    <tr *ngFor="let booking of displayArr">
+      <td label="Room">{{booking.room}}</td>
+      <td label="Date">{{booking.fromInSeconds | date:'fullDate'}}</td>
+      <td label="Time">{{booking.fromInSeconds| date:'shortTime'}} - {{booking.toInSeconds| date:'shortTime'}}</td>
+      <td label="Name">{{booking.name}}</td>
+      <td label="Agenda">{{booking.agenda}}</td>
+      <td label="Delete"><img src="../assets/icons/trash-alt-regular.svg" alt="delete logo"
+          (click)="delete(booking.id)"></td>
+    </tr>
+  </tbody>
+  <ng-template #noElements>
+    <tbody  class="no-elements">
+      <tr>
+        <td colspan="6">Oops! No bookings available.</td>
+      </tr>
+    </tbody>
+  </ng-template>
+</table>

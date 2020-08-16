@@ -1,5 +1,6 @@
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
+import { BehaviorSubject } from 'rxjs';
 
 @Injectable({
   providedIn: 'root'
@@ -8,13 +9,15 @@ export class DataService {
   bookingData: any;
   optionVal = "all";
   displayArr: any;
-
+  bookingDataSubject = new BehaviorSubject([]);
+  filterdArrSubject = new BehaviorSubject([]);
   constructor(private http: HttpClient) { }
 
   async getData() {
     const dbURL = 'http://localhost:3000/bookings'
     await this.http.get(dbURL).subscribe(async data => {
       this.bookingData = await data;
+      this.bookingDataSubject.next(this.bookingData);
       this.filterRoom(this.optionVal);
     });
   }
@@ -33,6 +36,7 @@ export class DataService {
   }
 
   filterRoom(value) {
+    this.optionVal = value;
     if (value !== 'all') {
       this.displayArr = this.bookingData.filter(val => {
         if (val.room == value) {
@@ -43,7 +47,9 @@ export class DataService {
     else {
       this.displayArr = [...this.bookingData];
     }
+    this.filterdArrSubject.next(this.displayArr);
   }
+
   getTimeInSeconds(day, time, forQuery = '') {
     const dateString = day + ' ' + time;
     const dateObj = new Date(dateString);
@@ -61,4 +67,8 @@ export class DataService {
     await this.http.delete(dbURL + "/" + id).toPromise();
     this.getData();
   }
+  counter(i: number) {
+    return new Array(i);
+  }
 }
+

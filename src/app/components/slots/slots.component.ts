@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
-import { DataService } from 'src/app/shared/data.service';
-import { TimeService } from 'src/app/shared/time.service';
+import { DataService } from '../../shared/data.service';
+import { TimeService } from '../../shared/time.service';
 
 @Component({
   selector: 'app-slots',

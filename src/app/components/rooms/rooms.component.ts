@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { DataService } from 'src/app/shared/data.service';
+import { DataService } from '../../shared/data.service';
 
 @Component({
   selector: 'app-rooms',
@@ -12,7 +12,7 @@ export class RoomsComponent implements OnInit {
   constructor(private dataService: DataService) { }
 
   ngOnInit(): void {
-    this.optionVal =  this.dataService.optionVal;
+    this.optionVal = this.dataService.optionVal;
     this.dataService.filterdArrSubject.subscribe((data) => {
       this.displayArr = data;
     });

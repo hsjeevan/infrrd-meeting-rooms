@@ -79,6 +79,10 @@ export class BookingComponent implements OnInit {
   }
 
   subscribeToForm() {
+    this.bookingForm.get('room').valueChanges.subscribe(val => {
+      this.slotUnavailable = false;
+    });
+
     this.bookingForm.get('fromTime').valueChanges.subscribe(val => {
       this.toTimeSlots = this.timeService.timeArr.filter(time => time > val);
       this.slotUnavailable = false;

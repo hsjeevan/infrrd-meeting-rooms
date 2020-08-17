@@ -63,11 +63,10 @@ export class BookingComponent implements OnInit {
   initializeForm() {
     this.fromTimeSlots.pop();
     this.currentDate = this.timeService.getDateString(new Date());
+
     if (this.timeService.isWeekend(this.currentDate)) {
       this.currentDate = this.timeService.getNextMonday(this.currentDate);
     }
-    this.setFromTimeValue_Slots();
-
     this.bookingForm = new FormGroup({
       room: new FormControl(1, Validators.required),
       date: new FormControl(this.currentDate, [Validators.required, this.checkDateValidity.bind(this)]),
@@ -76,6 +75,8 @@ export class BookingComponent implements OnInit {
       name: new FormControl(null, Validators.required),
       agenda: new FormControl(null, Validators.required)
     });
+
+    this.setFromTimeValue_Slots();
   }
 
   subscribeToForm() {
@@ -113,6 +114,7 @@ export class BookingComponent implements OnInit {
   }
   setFromTimeValue_Slots() {
     this.time = '09: 00';
+
     if (this.timeService.isSameDay(this.currentDate)) {
       const now = new Date().toTimeString().split(':');
       this.fromTimeSlots = this.fromTimeSlots.filter(time => time > `${now[0]}: ${now[1]}`);
@@ -121,6 +123,9 @@ export class BookingComponent implements OnInit {
       }
       else {
         this.setNextDay(this.currentDate);
+        this.fromTimeSlots = [...this.timeService.timeArr];
+        this.fromTimeSlots.pop();
+        this.bookingForm.controls.fromTime.setValue(this.time);
       }
     }
     this.toTimeSlots = this.timeService.timeArr.filter(time => time > this.time);
@@ -129,10 +134,9 @@ export class BookingComponent implements OnInit {
     const nextDay = new Date(day);
     nextDay.setDate(nextDay.getDate() + 1);
     const newDate = this.timeService.isWeekend(nextDay) ? this.timeService.getNextMonday(day) : this.timeService.getDateString(nextDay);
-    this.bookingForm.controls.fromTime.setValue(newDate);
+    this.bookingForm.controls.date.setValue(newDate);
+    this.currentDate = newDate;
   }
-
-
 
   counter(val) {
     return this.dataService.counter(val);

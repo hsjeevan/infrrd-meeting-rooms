@@ -13,6 +13,10 @@ Run `ng s --o` for a dev server. Navigate to `http://localhost:4200/`. The app w
 Run `npm run json:serve` to start the database server. Navigate to `http://localhost:3000/`.
 
 
-#StackBlitz
+# StackBlitz
 
 https://stackblitz.com/github/hsjeevan/infrrd-meeting-rooms
+
+
+
+Note that, the above link is only to view the UI. For the application to be functional, JSON server needs to be running.

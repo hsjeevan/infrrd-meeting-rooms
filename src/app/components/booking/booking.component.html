@@ -25,6 +25,8 @@
       <span class="highlight"></span>
       <span class="bar"></span>
       <label>Date</label>
+      <span *ngIf="!bookingForm.get('date').valid &&  bookingForm.get('date').touched" class='error-msg'>Meeting rooms
+        are unavailable during weekends.</span>
     </div>
     <div class="group">
       <select formControlName="fromTime">
@@ -56,8 +58,10 @@
       <span class="bar"></span>
       <label>Agenda</label>
     </div>
+    <span class="error-msg" *ngIf="slotUnavailable">Oops! Looks like the slot is unavailable. Try a diffrent slot.</span>
     <div class="btn-form-container">
       <button class="btn" [disabled]="!bookingForm.valid" type="submit">Book room</button>
     </div>
+
   </form>
 </div>

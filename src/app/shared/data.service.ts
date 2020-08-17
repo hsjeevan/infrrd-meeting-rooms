@@ -7,12 +7,12 @@ import { BehaviorSubject } from 'rxjs';
 })
 export class DataService {
   bookingData: any;
-  optionVal = "all";
+  optionVal = 'all';
   displayArr: any;
   bookingDataSubject = new BehaviorSubject([]);
   filterdArrSubject = new BehaviorSubject([]);
 
-  dbURL = 'http://localhost:3000/bookings'
+  dbURL = 'http://localhost:3000/bookings';
   constructor(private http: HttpClient) { }
 
   async getData() {
@@ -40,6 +40,7 @@ export class DataService {
     this.optionVal = value;
     if (value !== 'all') {
       this.displayArr = this.bookingData.filter(val => {
+        // tslint:disable-next-line: triple-equals
         if (val.room == value) {
           return val;
         }
@@ -68,7 +69,7 @@ export class DataService {
     this.getData();
   }
   async delete(id) {
-    await this.http.delete(this.dbURL + "/" + id).toPromise();
+    await this.http.delete(this.dbURL + '/' + id).toPromise();
     this.getData();
   }
   counter(i: number) {

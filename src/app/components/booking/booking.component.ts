@@ -18,7 +18,7 @@ export class BookingComponent implements OnInit {
   fromTimeSlots = [...this.timeService.timeArr];
   toTimeSlots = [...this.timeService.timeArr];
   currentDate: any;
-
+  slotUnavailable = false;
   constructor(private timeService: TimeService, private dataService: DataService, private router: Router) { }
 
   async ngOnInit() {
@@ -26,8 +26,6 @@ export class BookingComponent implements OnInit {
     this.subscribeToForm();
     // this.dataService.getData();
   }
-
-
 
   onSubmit() {
     const formData = this.bookingForm.value;
@@ -41,15 +39,25 @@ export class BookingComponent implements OnInit {
       toInSeconds: this.dataService.getTimeInSeconds(formData.date, formData.toTime),
       fromInSeconds: this.dataService.getTimeInSeconds(formData.date, formData.fromTime)
     };
-    let k = this.dataService.checkConflictingBookings(postData);
-    if (k.length < 1) {
-      this.dataService.getData();
-      this.dataService.post(postData)
-      this.router.navigate(['/rooms']);
+    const conflictArr = this.dataService.checkConflictingBookings(postData);
+    if (conflictArr.length < 1) {
+      this.dataService.post(postData);
+      // this.router.navigate(['/rooms']);
     }
     else {
-      console.log('Meeting room unavailable. Please check other slots');
+      this.slotUnavailable = true;
+      // setTimeout(() => {
+      //   this.slotUnavailable = false;
+      // }, 3000);
+      // console.log('Meeting room unavailable. Please check other slots');
     }
+  }
+
+  checkDateValidity(control: FormControl): { [s: string]: boolean } {
+    if (this.timeService.isWeekend(control.value)) {
+      return { 'MeetingUnavailable': true };
+    }
+    return null;
   }
 
   initializeForm() {
@@ -62,7 +70,7 @@ export class BookingComponent implements OnInit {
 
     this.bookingForm = new FormGroup({
       room: new FormControl(1, Validators.required),
-      date: new FormControl(this.currentDate, Validators.required),
+      date: new FormControl(this.currentDate, [Validators.required, this.checkDateValidity.bind(this)]),
       fromTime: new FormControl(this.time, Validators.required),
       toTime: new FormControl(null, Validators.required),
       name: new FormControl(null, Validators.required),
@@ -73,10 +81,12 @@ export class BookingComponent implements OnInit {
   subscribeToForm() {
     this.bookingForm.get('fromTime').valueChanges.subscribe(val => {
       this.toTimeSlots = this.timeService.timeArr.filter(time => time > val);
+      this.slotUnavailable = false;
     });
 
 
     this.bookingForm.get('date').valueChanges.subscribe(val => {
+      this.slotUnavailable = false;
       if (this.timeService.isWeekend(val)) {
         // this.getNextMonday(val);
         this.bookingForm.controls.fromTime.setValue('');
@@ -89,9 +99,11 @@ export class BookingComponent implements OnInit {
           this.setFromTimeValue_Slots();
           this.bookingForm.controls.fromTime.setValue(this.time);
         }
+
         this.bookingForm.controls.fromTime.enable();
         this.bookingForm.controls.toTime.enable();
         this.fromTimeSlots = [...this.timeService.timeArr];
+        this.fromTimeSlots.pop();
       }
     });
   }

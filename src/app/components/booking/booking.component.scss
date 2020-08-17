@@ -34,6 +34,12 @@ $gray-color: #757575;
   width: 80%;
 }
 
+.error-msg{
+  color: red;
+  font-size: 0.8rem;
+  padding: none;
+}
+
 @media screen and (max-width: 480px) {
   .welcome {
     width: 90vw;

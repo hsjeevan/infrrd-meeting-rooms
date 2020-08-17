@@ -40,7 +40,7 @@
       <td label="Timings">{{booking.fromInSeconds| date:'shortTime'}} - {{booking.toInSeconds| date:'shortTime'}}</td>
       <td label="Name">{{booking.name|| ''}}</td>
       <td label="status"
-        [ngClass]="[booking.status === 'Available' ? 'green' : booking.status === 'Booked'? 'orange' : 'yellow' ]">
+        [ngClass]="[booking.status === 'Available' ? 'green' : booking.status === 'Booked'? 'orange' : 'red' ]">
         {{booking.status}}</td>
     </tr>
   </tbody>

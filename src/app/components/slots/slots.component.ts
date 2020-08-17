@@ -42,13 +42,10 @@ export class SlotsComponent implements OnInit {
         (to >= booking.fromInSeconds && to <= booking.toInSeconds)) {
         newArr[booking.room - 1] = { status: 'Booked', ...booking };
       }
-      else if (now >= booking.fromInSeconds && now <= booking.toInSeconds) {
-        newArr[booking.room - 1] = { status: 'Booked', ...booking };
+      if (now >= booking.fromInSeconds && now <= booking.toInSeconds) {
+        newArr[booking.room - 1] = { status: 'In-Use', ...booking };
       }
-
     });
     this.availabilityArr = newArr;
   }
-
-
 }

@@ -42,7 +42,7 @@ export class BookingComponent implements OnInit {
     const conflictArr = this.dataService.checkConflictingBookings(postData);
     if (conflictArr.length < 1) {
       this.dataService.post(postData);
-      this.router.navigate(['/rooms']);
+      this.router.navigate(['/bookings']);
     }
     else {
       this.slotUnavailable = true;

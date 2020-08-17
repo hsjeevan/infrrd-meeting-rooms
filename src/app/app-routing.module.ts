@@ -7,8 +7,8 @@ import { SlotsComponent } from './components/slots/slots.component';
 
 const routes: Routes = [
   {path: '', component: BookingComponent},
-  {path: 'rooms', component: RoomsComponent},
-  {path: 'slots', component: SlotsComponent},
+  {path: 'bookings', component: RoomsComponent},
+  {path: 'availability', component: SlotsComponent},
 ];
 
 @NgModule({

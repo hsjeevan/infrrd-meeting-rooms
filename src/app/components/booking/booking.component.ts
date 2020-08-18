@@ -119,7 +119,7 @@ export class BookingComponent implements OnInit {
       const now = new Date().toTimeString().split(':');
       this.fromTimeSlots = this.fromTimeSlots.filter(time => time > `${now[0]}: ${now[1]}`);
       if (this.fromTimeSlots.length > 0) {
-        this.time = this.fromTimeSlots[0];
+        this.bookingForm.controls.fromTime.setValue(this.fromTimeSlots[0])
       }
       else {
         this.setNextDay(this.currentDate);
